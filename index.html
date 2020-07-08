@@ -19,27 +19,22 @@
         </header>
 
         <main class="col-12 d-flex flex-column overflow-hidden">
-            <div class="row justify-content-around">
-                <div class="col-3">
-                    <div class="container row bg-light">
+            <div class="row justify-content-center">
+                <div class="col-2">
+                    <div class="container row border bg-light p-3">
                         <h3 class="text-uppercase col-12">Search By City:</h3>
                         <div class="row">
-                            <form id="user-form" class="col-12 row ml-auto mr-auto">
-                                <input name="city-name" id="city-name" type="text" autofocus="true" class="form-input col-8 mr-2" />
-                                <button type="submit" class="btn btn-dark col-2"><span class="oi oi-magnifying-glass"></span></button>
+                            <form id="user-form" class="col-12 row ml-auto mr-auto ">
+                                <input name="city-name" id="city-name" type="text" autofocus="true" class="form-input mr-2" />
+                                <button type="submit" class="btn btn-dark"><span class="oi oi-magnifying-glass"></span></button>
                             </form>
-                            <button type="button" id="austin-btn" class="btn bg-white border col-7 text-left mt-1 ml-3 mb-1 pl-4">Austin</button>
-                            <button type="button" id="chicago-btn" class="btn bg-white border col-7 text-left mb-1 ml-3 pl-4">Chicago</button>
-                            <button type="button" id="new-york-btn" class="btn bg-white border col-7 text-left mb-1 ml-3 pl-4">New York</button>
-                            <button type="button" id="orlando-btn" class="btn bg-white border col-7 text-left mb-1 ml-3 pl-4">Orlando</button>
-                            <button type="button" id="san-fran-btn" class="btn bg-white border col-7 text-left mb-1 ml-3 pl-4">San Francisco</button>
-                            <button type="button" id="seattle-btn" class="btn bg-white border col-7 text-left mb-1 ml-3 pl-4">Seattle</button>
-                            <button type="button" id="denver-btn" class="btn bg-white border col-7 text-left mb-1 ml-3 pl-4">Denver</button>
-                            <button type="button" id="atlanta-btn" class="btn bg-white border col-7 text-left mb-1 ml-3 pl-4">Atlanta</button>
+                            <div id="search-history-btns">
+
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-9 row">
+                <div class="col-8 row">
                     <div class="container col-12 border bg-light pt-4 pl-4 pr-4">
                         <h4><span id="city-name">city name</span> (<span id="date">date</span>)</h5>
                         <h5 id="temperature-label" class="mt-3 mb-3">Temperature:<span id="temperature"></h4>
