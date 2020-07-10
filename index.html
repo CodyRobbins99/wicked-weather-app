@@ -20,27 +20,25 @@
 
         <main class="col-12 d-flex flex-column overflow-hidden">
             <div class="row justify-content-center">
-                <div class="col-2">
+                <div class="col-lg-3 col-md-4">
                     <div class="container row border bg-light p-3">
                         <h3 class="text-uppercase col-12">Search By City:</h3>
                         <div class="row">
-                            <form id="user-form" class="col-12 row ml-auto mr-auto ">
+                            <form id="user-form" class="d-inline-block row ml-auto mr-auto p-1">
                                 <input name="city-name" id="city-name" type="text" autofocus="true" class="form-input mr-2" />
                                 <button type="submit" class="btn btn-dark"><span class="oi oi-magnifying-glass"></span></button>
                             </form>
-                            <div id="search-history-btns">
-
-                            </div>
+                            <div id="search-history-btns"></div>
                         </div>
                     </div>
                 </div>
-                <div class="col-8 row">
+                <div class="col-lg-8 col-md-6 row">
                     <div class="container col-12 border bg-light p-4">
-                        <h4><span id="city-name">city name</span> (<span id="date">date</span>)</h5>
-                        <h5 id="temperature-label" class="mt-3 mb-3">Temperature:<span id="temperature"></h4>
-                        <h5 id="humidity-label" class="mt-3 mb-3">Humidity:<span id="humidity"></h4>
-                        <h5 id="wind-label" class="mt-3 mb-3">Wind Speed:<span id="wind-speed"></h4>
-                        <h5 id="uv-label" class="mt-3">UV Index:<span id="uv-index"></h4>
+                        <h4 class="text-uppercase"><span id="city-name-span"></span> - (<span id="date-span"></span>)</h5>
+                        <h5 id="temperature-label" class="mt-3 mb-3">Temperature:<span id="temperature-span"></span></h4>
+                        <h5 id="humidity-label" class="mt-3 mb-3">Humidity:<span id="humidity-span"></span></h4>
+                        <h5 id="wind-label" class="mt-3 mb-3">Wind Speed:<span id="wind-speed-span"></span></h4>
+                        <h5 id="uv-label" class="mt-3">UV Index:<span id="uv-index-span"></span></h4>
                     </div>
                     <div class="container col-12 border bg-light mt-2 p-4">
                         <h4>5 day Forecast:</h4>
