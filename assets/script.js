@@ -8,6 +8,7 @@ const windSpeedEl = document.querySelector("#wind-speed-span");
 const uvIndexEl = document.querySelector("#uv-index-span");
 const weatherIconEl = document.querySelector("#weather-icon-span");
 const forecastContainerEl = document.querySelector("#forecast-container");
+const searchButtonsEl = document.querySelector("#search-history-btns");
 
 const formSubmitHandler = function() {
     event.preventDefault();
@@ -17,11 +18,21 @@ const formSubmitHandler = function() {
     if (cityName) {
         getForecast(cityName);
         cityInputEl.value = '';
+        forecastContainerEl.innerHTML='';
     }
     else {
         alert("Please enter a valid city!");
     }
 };
+
+const buttonClickHandler = function(event) {
+    const city = event.target.getAttribute("data-city");
+    if (city) {
+        getForecast(city);
+
+        forecastContainerEl.innerHTML='';
+    }
+}
 
 const getForecast = function(city) {
     // format weather api url
@@ -53,6 +64,12 @@ const getForecast = function(city) {
 
         cityNameEl.textContent = currentWeatherResponse.name;
         dateEl.textContent = humanDateFormat
+
+        var cityButton = document.createElement(`button`)
+        cityButton.textContent = currentWeatherResponse.name;
+        cityButton.setAttribute(`data-city`,currentWeatherResponse.name);
+        cityButton.classList= `btn col-9 bg-info border border-info rounded m-2`
+        searchButtonsEl.appendChild(cityButton);
                 
         return fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${apiKey}&units=imperial`);
     })
@@ -80,7 +97,7 @@ const getForecast = function(city) {
         for (var i = 1; i < data.daily.length - 2; i++) {
             // create a div for forecast card
             const forecastCardEl = document.createElement(`div`);
-            forecastCardEl.classList = `col-2 bg-info row p-1 border border-info rounded`;
+            forecastCardEl.classList = `col-lg-2 col-md-12  bg-info row p-1 m-1 border border-info rounded`;
 
             // create a date 
             const unixTimestamp = data.daily[i].dt;
@@ -89,7 +106,7 @@ const getForecast = function(city) {
             const humanDateFormat = dateObject.toLocaleString()
             const forecastCardDate = document.createElement(`h5`);
             forecastCardDate.textContent = humanDateFormat;
-            forecastCardDate.classList = `text-uppercase col-12`
+            forecastCardDate.classList = `text-uppercase col-lg-12 col-md-8 col-sm-8`
 
             // append to container
             forecastCardEl.appendChild(forecastCardDate);
@@ -98,7 +115,7 @@ const getForecast = function(city) {
             const iconValue = data.daily[i].weather[0].icon
             const forecastIconEl = document.createElement(`img`);
             forecastIconEl.setAttribute(`src`,`http://openweathermap.org/img/wn/${iconValue}@2x.png`);
-            forecastIconEl.classList = `mw-25 mh-25 col-12`;
+            forecastIconEl.classList = `col-lg-12 col-md-3 col-sm-3`;
 
             // append to container
             forecastCardEl.appendChild(forecastIconEl);
@@ -127,3 +144,4 @@ const getForecast = function(city) {
 };
 
 userFormEl.addEventListener("submit", formSubmitHandler);
+searchButtonsEl.addEventListener("click", buttonClickHandler);

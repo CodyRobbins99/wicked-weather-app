@@ -20,15 +20,17 @@
 
         <main class="col-12 d-flex flex-column overflow-hidden">
             <div class="row justify-content-center">
-                <div class="col-lg-3 col-md-4">
-                    <div class="container row border bg-light p-3">
+                <div class="col-lg-3 col-md-4 col-sm-12 mr-1">
+                    <div class="row border bg-light p-3">
                         <h3 class="text-uppercase col-12">Search By City:</h3>
                         <div class="row">
                             <form id="user-form" class="d-inline-block row ml-auto mr-auto p-1">
                                 <input name="city-name" id="city-name" type="text" autofocus="true" class="form-input mr-2" />
                                 <button type="submit" class="btn btn-dark"><span class="oi oi-magnifying-glass"></span></button>
                             </form>
-                            <div id="search-history-btns"></div>
+                            <div id="search-history-btns" class="row col-12 justify-content-center">
+
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -42,7 +44,7 @@
                     </div>
                     <div class="container justify-content-between col-12 border bg-light mt-2 p-4">
                         <h4 class="col-12">5 day Forecast:</h4>
-                        <div class="row col-12 justify-content-between" id="forecast-container">
+                        <div class=" container row col-12 justify-content-between" id="forecast-container">
 
                         </div>
                     </div>
