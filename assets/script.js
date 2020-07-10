@@ -28,9 +28,99 @@ const formSubmitHandler = function() {
 const buttonClickHandler = function(event) {
     const city = event.target.getAttribute("data-city");
     if (city) {
-        getForecast(city);
-
         forecastContainerEl.innerHTML='';
+        fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=bb7e1bece1c4e598bb1f8819dfe626cd&units=imperial`)
+        .then(function(currentWeatherResponse) {
+            if (currentWeatherResponse.ok) {
+                return currentWeatherResponse.json();
+            }
+        })
+        .then(function(currentWeatherResponse) {
+            const lat = currentWeatherResponse.coord.lat;
+            const lon = currentWeatherResponse.coord.lon;
+    
+            const unixTimestamp = currentWeatherResponse.dt;
+            const milliseconds = unixTimestamp * 1000
+            const dateObject = new Date(milliseconds)
+            const humanDateFormat = dateObject.toLocaleString()
+    
+            const icon = currentWeatherResponse.weather[0].icon
+            weatherIconEl.innerHTML = `<img src="http://openweathermap.org/img/wn/${icon}@2x.png" />`
+            weatherIconEl.setAttribute("class", "mw-25 mh-25")
+    
+            cityNameEl.textContent = currentWeatherResponse.name;
+            dateEl.textContent = humanDateFormat
+                    
+            return fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=bb7e1bece1c4e598bb1f8819dfe626cd&units=imperial`);
+        })
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(data) {
+            cityInputEl.textContent = ``;
+            temperatureEl.textContent= ` ${data.current.temp}°F`;
+            humidityEl.textContent = ` ${data.current.humidity}%`;
+            windSpeedEl.textContent = ` ${data.current.wind_speed} Mph`;
+            uvIndexEl.textContent = ` ${data.current.uvi}`;
+    
+    
+            if (uvIndexEl.textContent <= 3.3) {
+                uvIndexEl.setAttribute("class", "bg-success border border-success rounded");
+            }
+            else if (uvIndexEl.textContent > 3.3 && uvIndexEl.textContent <= 6.6) {
+                uvIndexEl.setAttribute("class", "bg-warning  border border-warning rounded");
+            }
+            else if (uvIndexEl.textContent > 6.6) {
+                uvIndexEl.setAttribute("class", "bg-danger  border border-danger rounded");
+            }
+    
+            for (var i = 1; i < data.daily.length - 2; i++) {
+                // create a div for forecast card
+                const forecastCardEl = document.createElement(`div`);
+                forecastCardEl.classList = `col-lg-2 col-md-12  bg-info row p-1 m-1 border border-info rounded`;
+    
+                // create a date 
+                const unixTimestamp = data.daily[i].dt;
+                const milliseconds = unixTimestamp * 1000
+                const dateObject = new Date(milliseconds)
+                const humanDateFormat = dateObject.toLocaleString()
+                const forecastCardDate = document.createElement(`h5`);
+                forecastCardDate.textContent = humanDateFormat;
+                forecastCardDate.classList = `text-uppercase col-lg-12 col-md-8 col-sm-8`
+    
+                // append to container
+                forecastCardEl.appendChild(forecastCardDate);
+    
+                // create an icon
+                const iconValue = data.daily[i].weather[0].icon
+                const forecastIconEl = document.createElement(`img`);
+                forecastIconEl.setAttribute(`src`,`http://openweathermap.org/img/wn/${iconValue}@2x.png`);
+                forecastIconEl.classList = `col-lg-12 col-md-3 col-sm-3`;
+    
+                // append to container
+                forecastCardEl.appendChild(forecastIconEl);
+    
+                // create a temp
+                const tempValue = data.daily[i].temp.day
+                const forecastTempEl = document.createElement(`p`);
+                forecastTempEl.textContent = `${tempValue}°F`
+                forecastTempEl.classList = `col-12 text-uppercase`
+    
+                // append to container
+                forecastCardEl.appendChild(forecastTempEl);
+    
+                // create a humidity
+                const humidtyValue = data.daily[i].humidity
+                const forecastHumidityEl = document.createElement(`p`);
+                forecastHumidityEl.textContent = `${humidtyValue}% Humidity`
+                forecastHumidityEl.classList = `col-12`
+    
+                // append to container
+                forecastCardEl.appendChild(forecastHumidityEl);
+    
+                forecastContainerEl.appendChild(forecastCardEl);
+            }        
+        })
     }
 }
 
