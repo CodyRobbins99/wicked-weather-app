@@ -8,3 +8,8 @@ h3,
 h4 {
   font-family: "Staatliches", sans-serif;
 }
+
+h5,
+h6 {
+  font-weight: bold;
+}
