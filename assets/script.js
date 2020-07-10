@@ -77,7 +77,7 @@ const getForecast = function(city) {
             uvIndexEl.setAttribute("class", "bg-danger  border border-danger rounded");
         }
 
-        for (var i = 0; i < data.daily.length - 3; i++) {
+        for (var i = 1; i < data.daily.length - 2; i++) {
             // create a div for forecast card
             const forecastCardEl = document.createElement(`div`);
             forecastCardEl.classList = `col-2 bg-info row p-1 border border-info rounded`;
